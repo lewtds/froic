@@ -6,7 +6,6 @@ Random name generator.
 
 ```
 $ python name.py
-thagenuck
 ```
 
 ## Origin
@@ -19,9 +18,9 @@ author quotes Hadoop's creator, Doug Cutting, saying that:
 > used elsewhere: those are my naming criteria. Kids are good at
 > generating such. Googol is a kid’s term.
 
-So I set out to create a program to do just that: generating names that are
-**short**, relatively **easy to spell and pronounce**, **meaningless** and
-**not used anywhere**.
+I was struck by this idea and set out to create a program to do just that:
+generating names that are **short**, relatively **easy to spell and
+pronounce**, **meaningless** and **not used anywhere**.
 
 The program generated its own name.
 
