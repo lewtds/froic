@@ -1,6 +1,7 @@
 # Froic
 
-Random name generator.
+Generate random meaningless words that comply to the English phonology and
+orthography.
 
 ## Usage
 
