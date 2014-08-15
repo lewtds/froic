@@ -2,7 +2,14 @@
 
 Random name generator.
 
-----
+## Usage
+
+```
+$ python name.py
+thagenuck
+```
+
+## Origin
 
 One day, I was reading [Hadoop: The Definitive Guide][1]. In the book, the
 author quotes Hadoop's creator, Doug Cutting, saying that:
@@ -19,3 +26,11 @@ So I set out to create a program to do just that: generating names that are
 The program generated its own name.
 
 [1]: http://shop.oreilly.com/product/0636920021773.do
+
+## Legal
+
+The program is released under the GNU Public License version 3. See LICENSE
+for more details.
+
+The **british-english** file comes from the **words** package version 2.1-2 in
+Archlinux.
