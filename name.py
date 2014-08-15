@@ -15,7 +15,7 @@ MONOTHONGS = [
 ]
 
 DIPHTHONGS = [
-	'ai', 'au', 'ao',
+    'ai', 'au', 'ao',
     'ea', 'ee', 'ei', 'eo', 'ia', 'ie', 'io',
     'oa', 'oo', 'oi', 'ou', 'ua', 'ui', 'uo'
 ]
@@ -23,27 +23,27 @@ DIPHTHONGS = [
 VOWELS = MONOTHONGS + DIPHTHONGS
 
 CODAS = [
-	'b', 'c', 'ch', 'd', 'f', 'g', 'gh', 'h', 'k', 'l', 'll', 'lk',
-	'lm', 'm', 'n', 'p', 'ph', 'r', 's', 'st', 't', 'z',
+    'b', 'c', 'ch', 'd', 'f', 'g', 'gh', 'h', 'k', 'l', 'll', 'lk',
+    'lm', 'm', 'n', 'p', 'ph', 'r', 's', 'st', 't', 'z',
 ]
 
 
 def gen_syllable():
-	onset = random.randint(0, len(ONSETS) - 1)
-	vowel = random.randint(0, len(VOWELS) - 1)
-	coda = random.randint(0, len(CODAS) - 1)
+    onset = random.randint(0, len(ONSETS) - 1)
+    vowel = random.randint(0, len(VOWELS) - 1)
+    coda = random.randint(0, len(CODAS) - 1)
 
-	syllable = ONSETS[onset] + VOWELS[vowel] + CODAS[coda]
+    syllable = ONSETS[onset] + VOWELS[vowel] + CODAS[coda]
 
-	return syllable
+    return syllable
 
 
 def gen_word(syllable_count):
-	word = ""
-	for i in range(syllable_count):
-		word += gen_syllable()
-	return word
+    word = ""
+    for i in range(syllable_count):
+        word += gen_syllable()
+    return word
 
 
 if __name__ == "__main__":
-	print(gen_word(random.randint(1, 2)))
+    print(gen_word(random.randint(1, 2)))
