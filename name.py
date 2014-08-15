@@ -59,7 +59,7 @@ def syllable_to_repr(syl):
     # monophthong (e.g. ir and er for 3:). We opt for the simplest
     # and least astonishing one.
     MONOPHTHONG_REPR = {
-        'A:': 'ar',
+        'A:': 'a',
         'i:': 'ee',
         'I': 'i',
         'E': 'e',
