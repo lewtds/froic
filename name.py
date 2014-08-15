@@ -10,7 +10,7 @@ ONSETS = [
 ]
 
 
-MONOTHONGS = [
+MONOPHTHONGS = [
     'a', 'e', 'i', 'o', 'u'
 ]
 
@@ -20,7 +20,7 @@ DIPHTHONGS = [
     'oa', 'oo', 'oi', 'ou', 'ua', 'ui', 'uo'
 ]
 
-VOWELS = MONOTHONGS + DIPHTHONGS
+VOWELS = MONOPHTHONGS + DIPHTHONGS
 
 CODAS = [
     'b', 'c', 'ch', 'd', 'f', 'g', 'gh', 'h', 'k', 'l', 'll', 'lk',
