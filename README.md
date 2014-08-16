@@ -6,7 +6,20 @@ orthography.
 ## Usage
 
 ```
-$ python name.py
+$ python name.py --help
+usage: name.py [-h] [--allow-meaningful-words] [--allow-popular-words]
+               [--max-popularity INTEGER] [--max-syllables INTEGER]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --allow-meaningful-words
+                        Don't use the dictionary to dismiss meaningful words.
+  --allow-popular-words
+                        Don't use Bing to dismiss popular words.
+  --max-popularity INTEGER
+                        Max allowed popularity. Default is 100000.
+  --max-syllables INTEGER
+                        Max number of syllables. Default is 1.
 ```
 
 ## Origin
