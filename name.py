@@ -144,7 +144,7 @@ DIPHTHONG_REPR = {
     'aU': 'ow',
     'I@': 'ear',
     'E@': 'ere',
-    'U@': 'oor',
+    'U@': 'ua',
     'ju:': 'ew'
 }
 
