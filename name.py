@@ -247,7 +247,7 @@ def word_is_in_dictionary(word):
 def bing_popularity(word):
     try:
         response = urllib2.urlopen('http://www.bing.com/search?cc=us&q=' + word)
-        html = response.read()
+        html = response.read().decode('utf8')
 
         # They found nothing and suggested something else
         if re.search(r'<div id="sp_requery"><h2>No results found for', html) != None:
@@ -255,7 +255,8 @@ def bing_popularity(word):
 
         m = re.search(r'<span class="sb_count">([0-9,.]*) results</span>', html)
         return int(m.group(1).replace(",", '').replace('.', ''))
-    except:
+    except Exception as e:
+        print(e)
         return 0
 
 
