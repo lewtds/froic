@@ -7,13 +7,106 @@ import argparse
 
 
 # http://en.wikipedia.org/wiki/SAMPA_chart_for_English
+# http://en.wikipedia.org/wiki/English_phonology
 
-CONSONANTS = set(['p', 'b', 't', 'd', 'tS', 'dZ', 'k', 'g', 'f', 
+SINGLE_CONSONANTS = set(['p', 'b', 't', 'd', 'tS', 'dZ', 'k', 'g', 'f', 
 'v', 'T', 'D', 's', 'z', 'S', 'Z', 'h',
 'm', 'n', 'N', 'l', 'r', 'w', 'j', 'W', 'x', ''])
 
-ONSETS = CONSONANTS - set(['N', 'x'])
-CODAS = CONSONANTS - set(['h', 'r', 'w', 'j', 'W', 'x'])
+ONSETS = SINGLE_CONSONANTS - set(['N', 'x']) \
+    | set(['pl', 'bl', 'kl', 'gl', 'pr', 'br', 'tr', 'dr', 'kr', 'gr', 'tw', 'dw', 'kw', 'pw']) \
+    | set(['fl', 'sl', 'fr', 'hw', 'sw']) \
+    | set(['sp', 'st', 'sk']) \
+    | set(['sm', 'sn']) \
+    | set(['sf']) \
+    | set(['spl', 'spr', 'str', 'skr', 'skw'])
+
+
+# Although there could be many representations for a single
+# sound (e.g. ir and er for 3:). We opt for the simplest
+# and least astonishing one.
+
+ONSET_REPR = {
+    'tS': 'ch',
+    'dZ': 'j',
+    'T': 'th',
+    'D': 'th',
+    'S': 'sh',
+    'Z': 'z',
+    'j': 'y',
+    'W': 'wh',
+    'kr': 'cr',
+    'kw': 'qu',
+    'pw': 'pu',
+    'hw': 'wh',
+    'sf': 'sph',
+    'skr': 'scr',
+    'skw': 'squ'
+}
+
+
+CODAS = SINGLE_CONSONANTS - set(['h', 'r', 'w', 'j', 'W', 'x']) \
+    | set(['lp', 'lb', 'lt', 'ld', 'ltS', 'ldZ', 'lk']) \
+    | set(['rp', 'rb', 'rt', 'rd', 'rtS', 'rdZ', 'rk', 'rg']) \
+    | set(['lf', 'lv', 'lT', 'ls', 'lS']) \
+    | set(['rf', 'rv', 'rT', 'rs', 'rz', 'rS']) \
+    | set(['lm', 'ln']) \
+    | set(['rm', 'rn', 'rl']) \
+    | set(['mp', 'nt', 'nd', 'ntS', 'ndZ', 'Nk']) \
+    | set(['mf', 'mT', 'nT', 'ns', 'nz', 'NT']) \
+    | set(['ft', 'sp', 'st', 'sk']) \
+    | set(['fT']) \
+    | set(['pt', 'kt']) \
+    | set(['pT', 'ps', 'ts', 'dT', 'ks']) \
+    | set(['mpt', 'mps', 'ndT']) \
+    | set(['kst'])
+
+
+CODA_REPR = {
+    'tS': 'ch',
+    'dZ': 'dge',
+    'k': 'ck', 
+    'v': 've',
+    'T': 'th',
+    'D': 'th',
+    's': 'ss',
+    'z': 'se',
+    'S': 'sh',
+    'Z': 'ge',
+    'N': 'ng',
+    'l': 'll',
+    'ltS': 'lch',
+    'ldZ': 'lge',
+    'rtS': 'rch',
+    'rdZ': 'rge',
+    'rg': 'rgue',
+    'lT': 'lth',
+    'ls': 'lse',
+    'lS': 'lsh',
+    'rv': 'rve',
+    'rT': 'rth',
+    'rs': 'rce',
+    'rz': 'rs',
+    'ntS': 'nch',
+    'ndZ': 'nge',
+    'Nk': 'nk',
+    'mf': 'mph',
+    'mT': 'mth',
+    'nT': 'nth',
+    'ns': 'nce',
+    'nz': 'nze',
+    'NT': 'ngth',
+    'fT': 'fth',
+    'kt': 'ct',
+    'pT': 'pth',
+    'ps': 'pse',
+    'ts': 'tz',
+    'dT': 'dth',
+    'ks': 'x',
+    'mps': 'mpse',
+    'ndT': 'ndth',
+    'kst': 'xt'
+}
 
 
 MONOPHTHONGS = [ 'A:', 'i:', 'I', 'E', '3:', '{', 'A:', 'V',
@@ -24,6 +117,33 @@ DIPHTHONGS = ['eI', 'aI', 'OI', '@U', 'aU', 'I@', 'E@', 'U@', 'ju:']
 
 
 VOWELS = MONOPHTHONGS + DIPHTHONGS
+
+MONOPHTHONG_REPR = {
+    'A:': 'a',
+    'i:': 'ee',
+    'I': 'i',
+    'E': 'e',
+    '3:': 'er',
+    '{': 'a',
+    'V': 'u',
+    'Q': 'o',
+    'O:': 'o',
+    'U': 'u',
+    'u:': 'oo',
+    '@': 'er'
+}
+
+DIPHTHONG_REPR = {
+    'eI': 'ay',
+    'aI': 'ai',
+    'OI': 'oy',
+    '@U': 'o',
+    'aU': 'ow',
+    'I@': 'ear',
+    'E@': 'ere',
+    'U@': 'oor',
+    'ju:': 'ew'
+}
 
 
 def syllable_nucleus(syl):
@@ -56,75 +176,34 @@ def syllable_to_repr(syl):
     """
     syllable_to_repr turns a syllable into a string representation.
     """
-    # Although there could be many representations for a single
-    # monophthong (e.g. ir and er for 3:). We opt for the simplest
-    # and least astonishing one.
-    MONOPHTHONG_REPR = {
-        'A:': 'a',
-        'i:': 'ee',
-        'I': 'i',
-        'E': 'e',
-        '3:': 'er',
-        '{': 'a',
-        'V': 'u',
-        'Q': 'o',
-        'O:': 'o',
-        'U': 'u',
-        'u:': 'oo',
-        '@': 'er'
-    }
-
-    DIPHTHONG_REPR = {
-        'eI': 'ay',
-        'aI': 'y',
-        'OI': 'oy',
-        '@U': 'o',
-        'aU': 'ow',
-        'I@': 'ear',
-        'E@': 'ere',
-        'U@': 'air',
-        'ju:': 'u'
-    }
-
     nucleus = syllable_nucleus(syl)
-    nucleus_repr = MONOPHTHONG_REPR[nucleus] \
-        if nucleus in MONOPHTHONGS else DIPHTHONG_REPR[nucleus]
-
-    ONSET_REPR = {
-        'tS': 'ch',
-        'dZ': 'j',
-        'T': 'th',
-        'D': 'th',
-        'S': 'sh',
-        'Z': 'z',
-        'j': 'y',
-        'W': 'wh',
-        '': ''
-    }
+    if nucleus in MONOPHTHONGS:
+        if nucleus in MONOPHTHONG_REPR:
+            nucleus_repr = MONOPHTHONG_REPR[nucleus]
+    else:
+        nucleus_repr = DIPHTHONG_REPR[nucleus]
 
     onset = syllable_onset(syl)
     onset_repr = ONSET_REPR[onset] if onset in ONSET_REPR else onset
 
-    CODA_REPR = {
-        'tS': 'ch',
-        'dZ': 'dge',
-        'k': 'ck', 
-        'v': 've',
-        'T': 'th',
-        'D': 'the',
-        's': 'ss',
-        'z': 'se',
-        'S': 'sh',
-        'Z': 'ge',
-        'N': 'ng',
-        'l': 'll'
-    }
-
     coda = syllable_coda(syl)
     coda_repr = CODA_REPR[coda] if coda in CODA_REPR else coda
 
-    if coda_repr == 'll' and nucleus_repr == 'ee':
+    # FIXME: Urgently in need of refactoring
+    if coda_repr == 'll' and nucleus_repr in ['ee', 'er', 'oo']:
         coda_repr = 'l'
+
+    if coda_repr == 'ss' and nucleus_repr == 'ee':
+        nucleus_repr = 'i'
+
+    if nucleus_repr == 'i' and coda_repr == '':
+        nucleus_repr = 'y'
+
+    if nucleus_repr == 'ee' and onset_repr in ['pu', 'qu', 'squ']:
+        nucleus_repr = 'i'
+
+    if nucleus_repr == 'ee' and coda_repr == 'sp':
+        nucleus_repr = 'i'
 
     return onset_repr + nucleus_repr + coda_repr
 
