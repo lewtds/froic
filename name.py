@@ -3,6 +3,7 @@ import os
 import subprocess
 import urllib2
 import re
+import argparse
 
 
 # http://en.wikipedia.org/wiki/SAMPA_chart_for_English
@@ -156,9 +157,39 @@ def bing_popularity(word):
 
 
 if __name__ == "__main__":
-    word = gen_word(random.randint(1, 2))
-    while word_is_in_dictionary(word) or bing_popularity(word) > 100000:
-        word = gen_word(random.randint(1, 2))
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--allow-meaningful-words",
+        help="Don't use the dictionary to dismiss meaningful words.",
+        action="store_true")
+
+    parser.add_argument("--allow-popular-words",
+        help="Don't use Bing to dismiss popular words.", action="store_true")
+
+    parser.add_argument("--max-popularity",
+        help="Max allowed popularity. Default is 100000.",
+        type=int, default=100000, metavar="INTEGER")
+
+    parser.add_argument("--max-syllables",
+        help="Max number of syllables. Default is 1.",
+        type=int, default=1, metavar="INTEGER")
+
+    args = parser.parse_args()
+
+
+    if args.allow_meaningful_words:
+        def word_is_in_dictionary(word):
+            return False
+
+    if args.allow_popular_words:
+        def bing_popularity(word):
+            return 0
+
+    word = gen_word(random.randint(1, args.max_syllables))
+    while word_is_in_dictionary(word) \
+            or bing_popularity(word) > args.max_popularity:
+        word = gen_word(random.randint(1, args.max_syllables))
 
     print(word)
 
