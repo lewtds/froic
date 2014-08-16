@@ -9,6 +9,9 @@ import argparse
 # http://en.wikipedia.org/wiki/SAMPA_chart_for_English
 # http://en.wikipedia.org/wiki/English_phonology
 
+# We deliberately remove some possible sounds because we think
+# they are hard to pronounce.
+
 SINGLE_CONSONANTS = set(['p', 'b', 't', 'd', 'tS', 'dZ', 'k', 'g', 'f', 
 'v', 'T', 'D', 's', 'z', 'S', 'Z', 'h',
 'm', 'n', 'N', 'l', 'r', 'w', 'j', 'W', 'x', ''])
