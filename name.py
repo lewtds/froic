@@ -172,6 +172,20 @@ def gen_syllable():
     return syllable
 
 
+def is_good_syllable(syl):
+    """
+    is_good_syllable uses some simple phonology check to rule out
+    hard to pronounce syllables.
+    """
+    if syllable_nucleus(syl) == "3:" \
+            and syllable_coda(syl) \
+            not in ['t', 'p', 'd', 'th', 'g', 'f', 'm', 'n', 'v']:
+        return False
+
+    return True
+
+
+
 def syllable_to_repr(syl):
     """
     syllable_to_repr turns a syllable into a string representation.
@@ -211,7 +225,10 @@ def syllable_to_repr(syl):
 def gen_word(syllable_count):
     word = ""
     for i in range(syllable_count):
-        word += syllable_to_repr(gen_syllable())
+        syl = gen_syllable()
+        while not is_good_syllable(syl):
+            syl = gen_syllable()
+        word += syllable_to_repr(syl)
     return word
 
 
