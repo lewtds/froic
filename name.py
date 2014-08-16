@@ -177,7 +177,7 @@ def is_good_syllable(syl):
     is_good_syllable uses some simple phonology check to rule out
     hard to pronounce syllables.
     """
-    if syllable_nucleus(syl) == "3:" \
+    if syllable_nucleus(syl) in ["3:", '@'] \
             and syllable_coda(syl) \
             not in ['t', 'p', 'd', 'th', 'g', 'f', 'm', 'n', 'v']:
         return False
