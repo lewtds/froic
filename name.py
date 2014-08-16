@@ -1,10 +1,14 @@
 import random
 import os
 import subprocess
-import urllib2
 import re
 import argparse
+import sys
 
+if sys.version_info.major >= 3:
+    import urllib.request as urllib2
+else:
+    import urllib2
 
 # http://en.wikipedia.org/wiki/SAMPA_chart_for_English
 # http://en.wikipedia.org/wiki/English_phonology
@@ -251,7 +255,7 @@ def bing_popularity(word):
 
         m = re.search(r'<span class="sb_count">([0-9,.]*) results</span>', html)
         return int(m.group(1).replace(",", '').replace('.', ''))
-    except Exception, e:
+    except:
         return 0
 
 
