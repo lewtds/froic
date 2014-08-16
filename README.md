@@ -6,7 +6,7 @@ orthography.
 ## Usage
 
 ```
-$ python name.py --help
+$ froic --help
 usage: name.py [-h] [--allow-meaningful-words] [--allow-popular-words]
                [--max-popularity INTEGER] [--max-syllables INTEGER]
                [--verbose]
