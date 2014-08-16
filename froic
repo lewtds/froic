@@ -247,6 +247,8 @@ def word_is_in_dictionary(word):
 
 
 def bing_popularity(word):
+    # We use Bing because it's easier to parse the number of
+    # search result. Google requires Javascript.
     try:
         response = urllib2.urlopen('http://www.bing.com/search?cc=us&q=' + word)
         html = response.read().decode('utf8')
