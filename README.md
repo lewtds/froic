@@ -3,6 +3,16 @@
 Generate random meaningless words that comply to the English phonology and
 orthography.
 
+```
+$ froic --verbose
+Trying 'serg'
+Nah, it's too popular.
+Trying 'chow'
+Nah, it has meaning.
+Trying 'froic'
+'froic' looks good.
+```
+
 ## Usage
 
 ```
