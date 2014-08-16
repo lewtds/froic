@@ -271,6 +271,9 @@ if __name__ == "__main__":
         help="Max number of syllables. Default is 1.",
         type=int, default=1, metavar="INTEGER")
 
+    parser.add_argument("--verbose",
+        help="Print more messages.", action="store_true")
+
     args = parser.parse_args()
 
 
@@ -282,10 +285,25 @@ if __name__ == "__main__":
         def bing_popularity(word):
             return 0
 
-    word = gen_word(random.randint(1, args.max_syllables))
-    while word_is_in_dictionary(word) \
-            or bing_popularity(word) > args.max_popularity:
-        word = gen_word(random.randint(1, args.max_syllables))
+    word = ""
 
-    print(word)
+    def log(msg):
+        if args.verbose:
+            print(msg)
+
+    while True:
+        word = gen_word(random.randint(1, args.max_syllables))
+        log("Trying '{0}'".format(word))
+
+        if word_is_in_dictionary(word):
+            log("Nah, it has meaning.")
+        elif bing_popularity(word) > args.max_popularity:
+            log("Nah, it's too popular.")
+        else:
+            break
+
+    if args.verbose:
+        print("'{0}' looks good.".format(word))
+    else:
+        print(word)
 

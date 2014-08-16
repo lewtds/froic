@@ -9,6 +9,7 @@ orthography.
 $ python name.py --help
 usage: name.py [-h] [--allow-meaningful-words] [--allow-popular-words]
                [--max-popularity INTEGER] [--max-syllables INTEGER]
+               [--verbose]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -20,6 +21,7 @@ optional arguments:
                         Max allowed popularity. Default is 100000.
   --max-syllables INTEGER
                         Max number of syllables. Default is 1.
+  --verbose             Print more messages.
 ```
 
 ## Origin
