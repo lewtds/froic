@@ -243,7 +243,7 @@ def bing_popularity(word):
         html = response.read()
 
         # They found nothing and suggested something else
-        if re.search(r'<div id="sp_requery">', html) != None:
+        if re.search(r'<div id="sp_requery"><h2>No results found for', html) != None:
             return 0
 
         m = re.search(r'<span class="sb_count">([0-9,.]*) results</span>', html)
