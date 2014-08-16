@@ -284,8 +284,8 @@ if __name__ == "__main__":
         help="Max number of syllables. Default is 1.",
         type=int, default=1, metavar="INTEGER")
 
-    parser.add_argument("--verbose",
-        help="Print more messages.", action="store_true")
+    parser.add_argument("--quiet",
+        help="Only print the final result.", action="store_true")
 
     args = parser.parse_args()
 
@@ -301,7 +301,7 @@ if __name__ == "__main__":
     word = ""
 
     def log(msg):
-        if args.verbose:
+        if not args.quiet:
             print(msg)
 
     while True:
@@ -315,8 +315,8 @@ if __name__ == "__main__":
         else:
             break
 
-    if args.verbose:
-        print("'{0}' looks good.".format(word))
-    else:
+    if args.quiet:
         print(word)
+    else:
+        print("'{0}' looks good.".format(word))
 

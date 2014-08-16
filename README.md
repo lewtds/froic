@@ -4,7 +4,7 @@ Generate random meaningless words that comply to the English phonology and
 orthography.
 
 ```
-$ froic --verbose
+$ froic
 Trying 'serg'
 Nah, it's too popular.
 Trying 'chow'
@@ -17,9 +17,8 @@ Trying 'froic'
 
 ```
 $ froic --help
-usage: name.py [-h] [--allow-meaningful-words] [--allow-popular-words]
-               [--max-popularity INTEGER] [--max-syllables INTEGER]
-               [--verbose]
+usage: froic [-h] [--allow-meaningful-words] [--allow-popular-words]
+             [--max-popularity INTEGER] [--max-syllables INTEGER] [--quiet]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -31,7 +30,7 @@ optional arguments:
                         Max allowed popularity. Default is 100000.
   --max-syllables INTEGER
                         Max number of syllables. Default is 1.
-  --verbose             Print more messages.
+  --quiet               Only print the final result.
 ```
 
 ## Origin
